@@ -6,7 +6,7 @@ body {
 }
 
 nav {
-  background-color: #e30707;
+  background-color: #db1b1b;
   color: #fff;
   padding: 10px 20px;
   display: flex;
@@ -14,8 +14,9 @@ nav {
   align-items: center;
 }
 
-nav h2 {
-  margin: 0;
+nav .logo {
+  height: 50px;
+  margin-right: 20px;
 }
 
 nav ul {
@@ -43,6 +44,46 @@ nav ul li a:hover {
   padding: 20px;
 }
 
+/* Center the form on the page */
+.register-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f8f8f8;
+}
+
+/* Style the form elements */
+.register-container input,
+.register-container select,
+.register-container button {
+  width: 300px;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+/* Style the button */
+.register-container button {
+  background-color: #333;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.register-container button:hover {
+  background-color: #555;
+}
+
+/* Error message style */
+.error-message {
+  color: red;
+  margin: 10px 0;
+}
+
 form {
   background-color: #fff;
   padding: 20px;
@@ -65,14 +106,14 @@ form button {
 }
 
 form button {
-  background-color: #333;
+  background-color: #ee1515;
   color: #fff;
   cursor: pointer;
   transition: background-color 0.3s;
 }
 
 form button:hover {
-  background-color: #555;
+  background-color: #d64949;
 }
 
 .document-list {
@@ -83,6 +124,14 @@ form button:hover {
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.document-list input[type="text"] {
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 .document-item {

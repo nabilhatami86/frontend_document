@@ -3,35 +3,50 @@ import { fetchDocuments } from '../services/documentService';
 
 const DocumentList = () => {
     const [documents, setDocuments] = useState([]);
-    const [sortOrder, setSortOrder] = useState('ASC');
+    const [searchTerm, setSearchTerm] = useState('');
+    const [sortedDocuments, setSortedDocuments] = useState([]);
 
-    const getDocuments = async (order) => {
+    useEffect(() => {
+        fetchAllDocuments();
+    }, []);
+
+    const fetchAllDocuments = async () => {
         try {
-            const response = await fetchDocuments(order);
+            const response = await fetchDocuments();
             setDocuments(response.data);
+            setSortedDocuments(response.data);
         } catch (error) {
-            alert('Error fetching documents');
-            console.error(error);
+            console.error('Error fetching documents:', error);
         }
     };
 
-    useEffect(() => {
-        getDocuments(sortOrder);
-    }, [sortOrder]);
+    const handleSearch = (e) => {
+        setSearchTerm(e.target.value);
+        if (e.target.value === '') {
+            setSortedDocuments(documents);
+        } else {
+            const filteredDocuments = documents.filter(doc => 
+                doc.document.toLowerCase().includes(e.target.value.toLowerCase())
+            );
+            setSortedDocuments(filteredDocuments);
+        }
+    };
 
     return (
-        <div>
-            <button onClick={() => setSortOrder('ASC')}>Fetch Documents A-Z</button>
-            <button onClick={() => setSortOrder('DESC')}>Fetch Documents Z-A</button>
-            <div className="document-list">
-                {documents.map((doc, index) => (
-                    <div key={index} className="document-item">
-                        <a href={doc.document} target="_blank" rel="noopener noreferrer">
-                            {doc.document}
-                        </a>
-                    </div>
+        <div className="document-list">
+            <input
+                type="text"
+                placeholder="Search documents"
+                value={searchTerm}
+                onChange={handleSearch}
+            />
+            <ul>
+                {sortedDocuments.map(doc => (
+                    <li key={doc.id} className="document-item">
+                        <a href={doc.document} target="_blank" rel="noopener noreferrer">{doc.document}</a>
+                    </li>
                 ))}
-            </div>
+            </ul>
         </div>
     );
 };
